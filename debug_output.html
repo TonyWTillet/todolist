@@ -1,0 +1,264 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To Do List app</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/custom.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">To Do List app</a>
+        <img src="/img/Logo_OpenClassrooms.png" alt="OpenClassrooms">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Accueil</a>
+                </li>
+                                                    <li>
+                        <a class="nav-link" href="/tasks">Liste des tâches</a>
+                    </li>
+                     <li>
+                        <a class="nav-link" href="/tasks/completed">Liste des tâches terminées</a>
+                    </li>
+                    <a href="/tasks/create" class="btn btn-warning pull-right">Créer une tâche</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Se déconnecter</a>
+                    </li>
+                            </ul>
+        </div>
+    </div>
+</nav>
+
+<h1>Welcome to Symfony</h1>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            
+            
+            <div class="text-center">
+                                <img class="slide-image" src="/img/todolist_content.jpg" alt="todo list">            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h1>Task List</h1>
+    <div class="row">
+                <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4 class="pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>                    </h4>
+                    <h4><a href="/tasks/11/edit">Task 1</a></h4>
+                    <p>Content of task 1</p>
+                </div>
+                <div>
+                    <form action="/tasks/11/toggle">
+                        <button class="btn btn-success btn-sm pull-right">
+                            Marquer comme faite                        </button>
+                    </form>
+                    <form action="/tasks/11/delete">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4 class="pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>                    </h4>
+                    <h4><a href="/tasks/12/edit">Task 2</a></h4>
+                    <p>Content of task 2</p>
+                </div>
+                <div>
+                    <form action="/tasks/12/toggle">
+                        <button class="btn btn-success btn-sm pull-right">
+                            Marquer comme faite                        </button>
+                    </form>
+                    <form action="/tasks/12/delete">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4 class="pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>                    </h4>
+                    <h4><a href="/tasks/13/edit">Task 3</a></h4>
+                    <p>Content of task 3</p>
+                </div>
+                <div>
+                    <form action="/tasks/13/toggle">
+                        <button class="btn btn-success btn-sm pull-right">
+                            Marquer comme faite                        </button>
+                    </form>
+                    <form action="/tasks/13/delete">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4 class="pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>                    </h4>
+                    <h4><a href="/tasks/14/edit">Task 4</a></h4>
+                    <p>Content of task 4</p>
+                </div>
+                <div>
+                    <form action="/tasks/14/toggle">
+                        <button class="btn btn-success btn-sm pull-right">
+                            Marquer comme faite                        </button>
+                    </form>
+                    <form action="/tasks/14/delete">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4 class="pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>                    </h4>
+                    <h4><a href="/tasks/15/edit">Task 5</a></h4>
+                    <p>Content of task 5</p>
+                </div>
+                <div>
+                    <form action="/tasks/15/toggle">
+                        <button class="btn btn-success btn-sm pull-right">
+                            Marquer comme faite                        </button>
+                    </form>
+                    <form action="/tasks/15/delete">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4 class="pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>                    </h4>
+                    <h4><a href="/tasks/16/edit">Task 6</a></h4>
+                    <p>Content of task 6</p>
+                </div>
+                <div>
+                    <form action="/tasks/16/toggle">
+                        <button class="btn btn-success btn-sm pull-right">
+                            Marquer comme faite                        </button>
+                    </form>
+                    <form action="/tasks/16/delete">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4 class="pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>                    </h4>
+                    <h4><a href="/tasks/17/edit">Task 7</a></h4>
+                    <p>Content of task 7</p>
+                </div>
+                <div>
+                    <form action="/tasks/17/toggle">
+                        <button class="btn btn-success btn-sm pull-right">
+                            Marquer comme faite                        </button>
+                    </form>
+                    <form action="/tasks/17/delete">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4 class="pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>                    </h4>
+                    <h4><a href="/tasks/18/edit">Task 8</a></h4>
+                    <p>Content of task 8</p>
+                </div>
+                <div>
+                    <form action="/tasks/18/toggle">
+                        <button class="btn btn-success btn-sm pull-right">
+                            Marquer comme faite                        </button>
+                    </form>
+                    <form action="/tasks/18/delete">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4 class="pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>                    </h4>
+                    <h4><a href="/tasks/19/edit">Task 9</a></h4>
+                    <p>Content of task 9</p>
+                </div>
+                <div>
+                    <form action="/tasks/19/toggle">
+                        <button class="btn btn-success btn-sm pull-right">
+                            Marquer comme faite                        </button>
+                    </form>
+                    <form action="/tasks/19/delete">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4 class="pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>                    </h4>
+                    <h4><a href="/tasks/20/edit">Task 10</a></h4>
+                    <p>Content of task 10</p>
+                </div>
+                <div>
+                    <form action="/tasks/20/toggle">
+                        <button class="btn btn-success btn-sm pull-right">
+                            Marquer comme faite                        </button>
+                    </form>
+                    <form action="/tasks/20/delete">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+
+<footer class="footer mt-4 bg-light">
+    <div class="container text-center">
+        <hr>
+        <p>© OpenClassrooms - 2024</p>
+    </div>
+</footer>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+

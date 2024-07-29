@@ -1,0 +1,19 @@
+{# templates/task/completed_list.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des tâches terminées{% endblock %}
+
+{% block body %}
+    <h1>Liste des tâches terminées</h1>
+
+    {% if completedTasks|length > 0 %}
+        <ul>
+            {% for task in completedTasks %}
+                <li>{{ task.title }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune tâche terminée à afficher.</p>
+    {% endif %}
+{% endblock %}

@@ -20,7 +20,7 @@ MySQL 5.7 or more
 ## Installation
 1. Copy repository
 ```
-git clone https://github.com/jucarre/TodoList.git
+git clone https://github.com/TonyWTillet/todolist.git
 ```
 
 2. Configure BDD connect on .env file

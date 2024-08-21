@@ -36,6 +36,7 @@
         "symfony/framework-bundle": "7.1.*",
         "symfony/intl": "7.1.*",
         "symfony/mailer": "7.1.*",
+        "symfony/messenger": "7.1.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/polyfill-apcu": "^1.3",
         "symfony/property-access": "7.1.*",

@@ -18,11 +18,16 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            #custom_authenticator: App\Security\UsersAuthenticator
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                default_target_path: app_home
+                always_use_default_target_path: true
+                # csrf_token_generator: security.csrf.token_manager
             logout:
                 path: logout
                 # where to redirect after logout
-                target: login
+                target: app_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

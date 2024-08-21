@@ -17,36 +17,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private $id;
+    private ?int $id = null;
 
-    #[ORM\Column(type: "string", length: 25, unique: true)]
+    #[ORM\Column(type: "string", length: 25, unique: true, nullable: false)]
     #[Assert\NotBlank(message: "Vous devez saisir un nom d'utilisateur.")]
-    private $username;
+    private string $username;
 
 
     #[ORM\Column(length: 255, nullable: false)]
-    private $password;
+    private string $password;
 
-    #[ORM\Column(type: "string", length: 60, unique: true)]
+    #[ORM\Column(type: "string", length: 60, unique: true, nullable: false)]
     #[Assert\NotBlank(message: "Vous devez saisir une adresse email.")]
     #[Assert\Email(message: "Le format de l'adresse n'est pas correcte.")]
-    private $email;
+    private ?string $email;
 
-    #[ORM\Column]
+    #[ORM\Column(type: "json", nullable: false, options: ["default" => "['ROLE_USER']"])]
     #[Assert\NotBlank(message: "Vous devez saisir un rôle.")]
     private array $roles = [];
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
 
-    public function setUsername($username)
+    public function setUsername($username): void
     {
         $this->username = $username;
     }
@@ -56,7 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return null;
     }
 
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }

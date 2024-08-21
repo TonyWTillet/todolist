@@ -40,16 +40,6 @@ class UserRepository extends ServiceEntityRepository
         }
     }
 
-    public function removeToken(Token $token, EntityManagerInterface $entityManager): void
-    {
-        $query = $entityManager->createQuery('
-            DELETE FROM App\Entity\Token t
-            WHERE t = :token
-        ');
-
-        $query->setParameter('token', $token);
-        $query->execute();
-    }
 
 //    /**
 //     * @return User[] Returns an array of User objects

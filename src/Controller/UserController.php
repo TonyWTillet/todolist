@@ -4,37 +4,41 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-
-    #[Route('/users', name: 'user_list', methods: ['GET', 'POST'])]
-    public function listAction(): Response
+    public function __construct(private PasswordHasherFactoryInterface $passwordHasherFactory,)
     {
-        return $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository('AppBundle:User')->findAll()]);
+    }
+    #[Route('/users', name: 'user_list', methods: ['GET', 'POST'])]
+    public function listAction(UserRepository $userRepository): Response
+    {
+        return $this->render('user/list.html.twig', ['users' => $userRepository->findAll()]);
     }
 
 
     #[Route('/users/create', name: 'user_create', methods: ['GET', 'POST'])]
-    public function createAction(Request $request): Response
+    public function createAction(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $em = $this->getDoctrine()->getManager();
-                $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
-                $user->setPassword($password);
+                $user = $form->getData();
+                $user->setPassword($this->passwordHasherFactory->getPasswordHasher(User::class)->hash($user->getPassword()));
 
-                $em->persist($user);
-                $em->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
 
                 $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 

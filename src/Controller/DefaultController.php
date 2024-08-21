@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends AbstractController
 {
-    #[Route('/', name: 'homepage', methods : ['GET', 'POST'])]
+    #[Route('/', name: 'app_home', methods : ['GET', 'POST'])]
 
     public function index(): Response
     {

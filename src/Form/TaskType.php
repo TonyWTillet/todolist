@@ -19,9 +19,9 @@ class TaskType extends AbstractType
                 [
                     'required' => false,
                     'label' => 'Tâche terminée',
+                    'mapped' => false,
                 ]
             )
-            //->add('author') ===> must be the user authenticated
         ;
     }
 }

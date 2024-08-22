@@ -15,19 +15,6 @@ class AppFixtures extends Fixture
     }
     public function load(ObjectManager $manager): void
     {
-        $t = 5;
-        for ($i = 0; $i < $t; $i++) {
-            $task = new Task();
-            $task->setTitle('Tâche n°' . $i);
-            $task->setContent('Contenu de la tâche n°' . $i);
-            if ($i % 2 === 0) {
-                $task->toggle(true);
-            } else {
-                $task->toggle(false);
-            }
-            $manager->persist($task);
-        }
-
         $user = new User();
         $user->setUsername('User');
         $user->setEmail('user@gmail.com');
@@ -41,6 +28,23 @@ class AppFixtures extends Fixture
         $admin->setPassword($this->passwordHasherFactory->getPasswordHasher(User::class)->hash('admin'));
         $admin->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
+
+        $t = 5;
+        for ($i = 0; $i < $t; $i++) {
+            $task = new Task();
+            $task->setTitle('Tâche n°' . $i);
+            $task->setContent('Contenu de la tâche n°' . $i);
+            if ($i % 2 === 0) {
+                $task->setUser($user);
+                $task->toggle(true);
+            } else {
+                $task->setUser($admin);
+                $task->toggle(false);
+            }
+            $manager->persist($task);
+        }
+
+
 
         $manager->flush();
     }

@@ -32,9 +32,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email(message: "Le format de l'adresse n'est pas correcte.")]
     private ?string $email;
 
-    #[ORM\Column(type: "json", nullable: false, options: ["default" => "['ROLE_USER']"])]
+    #[ORM\Column(type: "json", nullable: true)]
     #[Assert\NotBlank(message: "Vous devez saisir un rôle.")]
-    private array $roles = [];
+    private ?array $roles = null;
 
     public function getId(): ?int
     {

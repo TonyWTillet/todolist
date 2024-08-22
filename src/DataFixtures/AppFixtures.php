@@ -29,17 +29,40 @@ class AppFixtures extends Fixture
         $admin->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
 
-        $t = 5;
+        $ano = new User();
+        $ano->setUsername('Anonyme');
+        $ano->setEmail('ano@gmail.com');
+        $ano->setPassword($this->passwordHasherFactory->getPasswordHasher(User::class)->hash('ano'));
+        $ano->setRoles(['ROLE_USER']);
+        $manager->persist($ano);
+
+        $t = 15;
         for ($i = 0; $i < $t; $i++) {
             $task = new Task();
             $task->setTitle('Tâche n°' . $i);
             $task->setContent('Contenu de la tâche n°' . $i);
-            if ($i % 2 === 0) {
+            if ($i < 5) {
+                if ($i%2 === 0) {
+                    $task->toggle(false);
+                } else {
+                    $task->toggle(true);
+                }
                 $task->setUser($user);
-                $task->toggle(true);
-            } else {
+            } elseif ($i < 10) {
+                if ($i%2 === 0) {
+                    $task->toggle(false);
+                } else {
+                    $task->toggle(true);
+                }
                 $task->setUser($admin);
-                $task->toggle(false);
+
+            } else {
+                if ($i%2 === 0) {
+                    $task->toggle(false);
+                } else {
+                    $task->toggle(true);
+                }
+                $task->setUser($ano);
             }
             $manager->persist($task);
         }

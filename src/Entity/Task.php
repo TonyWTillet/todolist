@@ -36,7 +36,7 @@ class Task
     #[ORM\Column(type: "boolean", nullable: false, options: ["default" => false])]
     private bool $isDone;
 
-    #[ORM\ManyToOne(inversedBy: 'tasks')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'tasks')]
     private ?User $user = null;
 
     public function __construct()

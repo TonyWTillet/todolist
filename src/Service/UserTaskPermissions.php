@@ -13,7 +13,7 @@ class UserTaskPermissions
      * @param $taskUser
      * @return bool
      */
-    public static function isOwner(UserInterface $user, Task $taskUser): bool
+    public static function isOwner(UserInterface $user, Task|User $taskUser): bool
     {
         return $user === $taskUser->getUser();
     }

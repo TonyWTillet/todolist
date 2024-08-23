@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\UserTaskPermissions;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,9 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    public function __construct(private PasswordHasherFactoryInterface $passwordHasherFactory,)
+    private UserTaskPermissions $userTaskPermissions;
+
+    public function __construct(UserTaskPermissions $userTaskPermissions, private PasswordHasherFactoryInterface $passwordHasherFactory)
     {
+        $this->userTaskPermissions = $userTaskPermissions;
     }
+
     #[Route('/users', name: 'user_list', methods: ['GET', 'POST'])]
     public function listAction(UserRepository $userRepository): Response
     {
@@ -53,17 +58,18 @@ class UserController extends AbstractController
     }
 
     #[Route('/users/{id}/edit', name: 'user_edit', methods: ['GET', 'POST'])]
-    public function editAction(User $user, Request $request): Response
+    public function editAction(User $user, Request $request, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+        if ($form->isSubmitted()  && $form->isValid()) {
+            $user = $form->getData();
+            $user->setPassword($this->passwordHasherFactory->getPasswordHasher(User::class)->hash($user->getPassword()));
 
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager->persist($user);
+            $entityManager->flush();
 
             $this->addFlash('success', "L'utilisateur a bien été modifié");
 

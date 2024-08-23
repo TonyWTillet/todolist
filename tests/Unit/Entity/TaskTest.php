@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Tests\Entity;
+namespace App\Tests\Unit\Entity;
 
 use App\Entity\Task;
 use App\Entity\User;
-use DateTime;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 #[CoversClass(User::class)]
 #[CoversClass(Task::class)]
-class TaskTest extends TestCase
+class TaskTest extends KernelTestCase
 {
 
     /**

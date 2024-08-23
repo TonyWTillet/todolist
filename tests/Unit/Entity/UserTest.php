@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Tests\Entity;
+namespace App\Tests\Unit\Entity;
 
 use App\Entity\Task;
 use App\Entity\User;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Exception;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
+
 #[CoversClass(User::class)]
 #[CoversClass(Task::class)]
-class UserTest extends TestCase
+class UserTest extends KernelTestCase
 {
     private PasswordHasherFactoryInterface $passwordHasherFactory;
 

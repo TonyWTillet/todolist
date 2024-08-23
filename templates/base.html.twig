@@ -28,7 +28,7 @@
     <!-- Page Content -->
     <div class="container">
         <div class="row">
-            {% if app.user is not empty and app.user.roles[0] is same as('ROLE_ADMIN') %}
+            {% if app.user is not empty and 'ROLE_ADMIN' in app.user.roles %}
                 <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
             {% endif %}
             {% if app.user %}

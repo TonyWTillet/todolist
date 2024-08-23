@@ -71,7 +71,7 @@ use Symfony\Component\Routing\Annotation\Route;
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $task = $form->getData();
             $entityManager->persist($task);
             $entityManager->flush();

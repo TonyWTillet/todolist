@@ -107,6 +107,68 @@ class TaskControllerTest extends WebTestCase
     }
 
     /**
+     * Test edit task
+     *
+     * @return void
+     * @throws ToolsException
+     */
+    public function testEditTask(): void
+    {
+        $this->purgeDatabase();
+        $author = 'user';
+        $title = 'Test title / add task';
+        $content = 'Test content / add task';
+
+        $this->logUtils->login($author);
+        $crawler = $this->client->request('GET', "/tasks/create");
+        $crsf = $crawler->filter('input[name="task[_token]"]')->extract(array('value'))[0];
+
+        $this->client->request('POST', "/tasks/create", [
+            'task' => [
+                'title' => $title,
+                'content' => $content,
+                '_token' => $crsf
+            ]
+        ]);
+
+        // check if task is created
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+        $taskCreated = $this->entityManager->getRepository(Task::class)->findOneBy(['title' => $title]);
+
+        // Edit task
+        $editTitle = 'Test title / edit task';
+        $editContent = 'Test content / edit task';
+
+        $crawler = $this->client->request('GET', "/tasks/{$taskCreated->getId()}/edit");
+        $crsf = $crawler->filter('input[name="task[_token]"]')->extract(array('value'))[0];
+
+        $this->client->request('POST', "/tasks/{$taskCreated->getId()}/edit", [
+            'task' => [
+                'title' => $editTitle,
+                'content' => $editContent,
+                '_token' => $crsf
+            ]
+        ]);
+
+        $taskEdited = $this->entityManager->getRepository(Task::class)->findOneBy(['title' => $editTitle]);
+
+        // check if task is edited
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+        // check if title task is present
+        $this->assertEquals($taskCreated->getTitle(), $taskEdited->getTitle());
+
+        // check if author task is present
+        $this->assertEquals($taskCreated->getUser()->getUsername(), $taskEdited->getUser()->getUsername());
+
+        // check if content task is present
+        $this->assertEquals($taskCreated->getContent(), $taskEdited->getContent());
+
+
+    }
+
+    /**
      * Get the value of idCreatedTask
      *
      * @return int

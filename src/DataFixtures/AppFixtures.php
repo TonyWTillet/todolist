@@ -10,7 +10,7 @@ use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 
 class AppFixtures extends Fixture
 {
-    public function __construct(private PasswordHasherFactoryInterface $passwordHasherFactory,)
+    public function __construct(private PasswordHasherFactoryInterface $passwordHasherFactory)
     {
     }
     public function load(ObjectManager $manager): void
@@ -21,6 +21,13 @@ class AppFixtures extends Fixture
         $user->setPassword($this->passwordHasherFactory->getPasswordHasher(User::class)->hash('user'));
         $user->setRoles(['ROLE_USER']);
         $manager->persist($user);
+
+        $user2 = new User();
+        $user2->setUsername('user2');
+        $user2->setEmail('usernotask@gmail.com');
+        $user2->setPassword($this->passwordHasherFactory->getPasswordHasher(User::class)->hash('user'));
+        $user2->setRoles(['ROLE_USER']);
+        $manager->persist($user2);
 
         $admin = new User();
         $admin->setUsername('Admin');
@@ -36,7 +43,7 @@ class AppFixtures extends Fixture
         $ano->setRoles(['ROLE_USER']);
         $manager->persist($ano);
 
-        $t = 15;
+        $t = 16;
         for ($i = 0; $i < $t; $i++) {
             $task = new Task();
             $task->setTitle('Tâche n°' . $i);
@@ -56,16 +63,23 @@ class AppFixtures extends Fixture
                 }
                 $task->setUser($admin);
 
-            } else {
+            } elseif ($i < 15) {
                 if ($i%2 === 0) {
                     $task->toggle(false);
                 } else {
                     $task->toggle(true);
                 }
                 $task->setUser($ano);
+            } else {
+                $task = new Task();
+                $task->setTitle('Tâche n°' . $i);
+                $task->setContent('Contenu de la tâche n°' . $i);
+                $task->setUser($user2);
             }
             $manager->persist($task);
         }
+
+
 
 
 

@@ -15,21 +15,17 @@ class LogUtils
         $this->client = $client;
     }
 
-    public function login($type): void
+    public function login($type, bool $useFixtures = false): void
     {
-        $credentials = ['username' => $type];
-
-        // get doctrine
         $entityManager = $this->client->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        // get a user from database
         if ($type === 'admin') {
             $user = $entityManager->getRepository(User::class)->findOneBy(['username' => 'admin']);
             if (!$user) {
                 $user = new User();
-                $user->setUsername('admin');
+                $user->setUsername('admintest');
                 $user->setEmail('admintest@gmail.com');
                 $user->setPassword('admin');
                 $user->setRoles(['ROLE_ADMIN']);
@@ -40,7 +36,7 @@ class LogUtils
             $user = $entityManager->getRepository(User::class)->findOneBy(['username' => 'user']);
             if (!$user) {
                 $user = new User();
-                $user->setUsername('user');
+                $user->setUsername('usertest');
                 $user->setEmail('usertest@gmail.com');
                 $user->setPassword('user');
                 $user->setRoles(['ROLE_USER']);
@@ -49,6 +45,16 @@ class LogUtils
             }
         }
 
+        $this->client->loginUser($user);
+    }
+
+    public function loginByUsername(string $username): void
+    {
+        $entityManager = $this->client->getContainer()
+            ->get('doctrine')
+            ->getManager();
+
+        $user = $entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
         $this->client->loginUser($user);
     }
 }

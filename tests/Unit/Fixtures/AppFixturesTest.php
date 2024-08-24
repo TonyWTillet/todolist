@@ -77,10 +77,10 @@ class AppFixturesTest extends KernelTestCase
 
             // Assertions
             $users = $this->entityManager->getRepository(User::class)->findAll();
-            $this->assertCount(3, $users, 'Three users should have been created.');
+            $this->assertCount(4, $users, 'Four users should have been created.');
 
             $tasks = $this->entityManager->getRepository(Task::class)->findAll();
-            $this->assertCount(15, $tasks, 'Fifteen tasks should have been created.');
+            $this->assertCount(16, $tasks, 'Sixteen tasks should have been created.');
     }
 
     /**

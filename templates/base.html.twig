@@ -30,6 +30,7 @@
         <div class="row">
             {% if app.user is not empty and 'ROLE_ADMIN' in app.user.roles %}
                 <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
+                <a href="{{ path('user_list') }}" class="btn btn-info">Liste des utilisateurs</a>
             {% endif %}
             {% if app.user %}
                 <a href="{{ path('logout') }}" class="pull-right btn btn-danger">Se déconnecter</a>

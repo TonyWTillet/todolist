@@ -52,3 +52,31 @@ body {
 footer {
     margin: 50px 0;
 }
+
+.mb-4 {
+    margin-bottom: 20px;
+}
+
+.mt-4 {
+    margin-top: 20px;
+}
+
+label {
+    margin-right: 15px;
+    width: 100%;
+}
+
+input, select, textarea {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    width: auto;
+    margin-top: 0;
+}
+
+textarea {
+    height: 100px;
+    width: 300px;
+}

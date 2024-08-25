@@ -122,4 +122,53 @@ class UserTest extends KernelTestCase
         $user->setRoles($role);
         $this->assertEquals($role, $user->getRoles());
     }
+
+    /**
+     * Test field user identifier
+     *
+     * @return void
+     */
+    public function testUserIdentifier()
+    {
+        $user = new User();
+        $username = "Test username";
+
+        $user->setUsername($username);
+        $this->assertEquals($username, $user->getUserIdentifier());
+    }
+
+    /**
+     * Test field erase credentials
+     *
+     * @return void
+     */
+    public function testEraseCredentials() {
+        $user = new User();
+        $this->assertNull($user->eraseCredentials());
+    }
+
+    /**
+     * Test field get tasks
+     *
+     * @return void
+     */
+    public function testGetTasks()
+    {
+        $user = new User();
+        $task = new Task();
+        $user->addTask($task);
+        $this->assertEquals($task, $user->getTasks()[0]);
+    }
+
+    /**
+     * Test salt field
+     *
+     * @return void
+     */
+    public function testSalt(): void
+    {
+        $user = new User();
+        $this->assertNull($user->getSalt());
+    }
+
 }

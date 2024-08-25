@@ -21,10 +21,14 @@ use Symfony\Component\Routing\Annotation\Route;
     public function __construct(UserTaskPermissions $userTaskPermissions)
     {
         $this->userTaskPermissions = $userTaskPermissions;
+
     }
     #[Route('/tasks', name: 'task_list')]
     public function listAction(TaskRepository $taskRepository): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($this->userTaskPermissions::isAdmin($this->getUser())) {
             $tasks = $taskRepository->findAll();
             return $this->render('task/list.html.twig', [
@@ -65,13 +69,14 @@ use Symfony\Component\Routing\Annotation\Route;
     public function editAction(Task $task, Request $request, EntityManagerInterface $entityManager): Response
     {
         if (!$this->userTaskPermissions::isAdmin($this->getUser()) && !$this->userTaskPermissions::isOwner($this->getUser(), $task)) {
+            $this->addFlash('error', 'Vous ne pouvez pas modifier cette tâche.');
             return $this->redirectToRoute('task_list');
         }
 
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $task = $form->getData();
             $entityManager->persist($task);
             $entityManager->flush();
@@ -91,6 +96,7 @@ use Symfony\Component\Routing\Annotation\Route;
     public function toggleTaskAction(Task $task, EntityManagerInterface $entityManager): Response
     {
         if (!$this->userTaskPermissions->isAdmin($this->getUser()) && !$this->userTaskPermissions->isOwner($this->getUser(), $task)) {
+            $this->addFlash('error', 'Vous ne pouvez pas modifier cette tâche.');
             return $this->redirectToRoute('task_list');
         }
 
@@ -106,7 +112,10 @@ use Symfony\Component\Routing\Annotation\Route;
     #[Route('/tasks/{id}/delete', name: 'task_delete', methods: ['GET', 'POST'])]
     public function deleteTaskAction(Task $task, EntityManagerInterface $entityManager): Response
     {
-
+        if (!$this->userTaskPermissions::isAdmin($this->getUser()) && !$this->userTaskPermissions::isOwner($this->getUser(), $task)) {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer cette tâche.');
+            return $this->redirectToRoute('task_list');
+        }
         $entityManager->remove($task);
         $entityManager->flush();
 

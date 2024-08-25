@@ -9,17 +9,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UserTaskPermissions
 {
     /**
-     * @param $user
-     * @param $taskUser
+     * @param UserInterface $user
+     * @param Task|User $taskUser
      * @return bool
      */
-    public static function isOwner(UserInterface $user, Task|User $taskUser): bool
+    public static function isOwner(UserInterface $user, Task $taskUser): bool
     {
         return $user === $taskUser->getUser();
     }
 
     /**
-     * @param $user
+     * @param UserInterface $user
      * @return bool
      */
     public static function isAdmin(UserInterface $user): bool

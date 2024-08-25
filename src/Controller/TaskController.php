@@ -21,10 +21,14 @@ use Symfony\Component\Routing\Annotation\Route;
     public function __construct(UserTaskPermissions $userTaskPermissions)
     {
         $this->userTaskPermissions = $userTaskPermissions;
+
     }
     #[Route('/tasks', name: 'task_list')]
     public function listAction(TaskRepository $taskRepository): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($this->userTaskPermissions::isAdmin($this->getUser())) {
             $tasks = $taskRepository->findAll();
             return $this->render('task/list.html.twig', [

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -13,6 +15,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    /**
+     *  Login action
+     *
+     * @param AuthenticationUtils $authenticationUtils
+     * @param Security $security
+     * @return Response
+     */
     #[Route('/login', name: 'app_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils, Security $security): Response
     {
@@ -32,9 +41,14 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    /**
+     *  Logout action
+     *
+     * @throws Exception
+     */
     #[Route('/logout', name: 'logout', methods: ['GET', 'POST'])]
     public function logout(): Response
     {
-        // This code is never executed.
+        return $this->redirectToRoute('app_login');
     }
 }

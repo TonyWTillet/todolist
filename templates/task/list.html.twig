@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
+{% block header_img %}<img class="slide-image mt-4" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
 
 {% block body %}
     {% if app.user is not empty %}
     <a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
     {% endif %}
     <div class="row">
-        <div class="col-12">
+        <div class="col-md-12">
             <h1 class="my-4">Liste des tâches</h1>
         </div>
         {% for task in tasks %}
-        <div class="col-sm-4 col-lg-4 col-md-4 task" data-id="{{ task.id }}">
+        <div class="col-sm-4 col-lg-4 col-md-4 task mb-4" data-id="{{ task.id }}">
             <div class="thumbnail">
                 <div class="caption">
                     <h4 class="pull-right isDoneTask" data-is-done="{{ task.isDone ? 'true' : 'false' }}">

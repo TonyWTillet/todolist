@@ -33,17 +33,17 @@ npm install
 
 4. Create database
 ```
-bin/console doctrine:database:create
+php bin/console doctrine:database:create
 ```
 
 5. Migrate database table
 ```
-bin/console doctrine:schema:create
+php bin/console doctrine:schema:create
 ```
 
 6. Load fixtures in database
 ```
-bin/console doctrine:fixtures:load
+php bin/console doctrine:fixtures:load
 ```
 
 7. Start server

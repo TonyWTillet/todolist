@@ -12,13 +12,12 @@ https://openclassrooms.com/projects/ameliorer-un-projet-existant-1
 <a href="https://codeclimate.com/github/TonyWTillet/todolist/test_coverage"><img src="https://api.codeclimate.com/v1/badges/660ecc5dfa4888614a73/test_coverage" /></a>
 
 ## Pre-requisites
-Link to doc technical requirements
 Symfony Local Web Server or Configure your local server MAMP, WAMP
 PHP 8.3 or more
 MySQL 5.7 or more
 
 ## Installation
-1. Copy repository
+1. Clone repository
 ```
 git clone https://github.com/TonyWTillet/todolist.git
 ```
@@ -27,6 +26,9 @@ git clone https://github.com/TonyWTillet/todolist.git
 3. Install the dependencies
 ```
 composer install
+```
+```
+npm install
 ```
 
 4. Create database
@@ -48,10 +50,13 @@ bin/console doctrine:fixtures:load
 ```
 symfony server:start
 ```
+```
+npm run watch
+```
 
 ## Tests
 ```
-bin/phpunit
+vendor/bin/phpunit
 or
-bin/phpunit --coverage-html docs/test-coverage
+vendor/bin/phpunit --coverage-html docs/test-coverage
 ```

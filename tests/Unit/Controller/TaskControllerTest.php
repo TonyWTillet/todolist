@@ -359,5 +359,4 @@ use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
         return $this;
     }
 
-
 }

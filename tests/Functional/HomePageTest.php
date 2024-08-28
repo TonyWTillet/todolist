@@ -103,6 +103,4 @@ class HomePageTest extends WebTestCase
         $this->assertStringContainsString("Créer un utilisateur", $titlePage);
     }
 
-
-
 }

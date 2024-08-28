@@ -57,7 +57,7 @@ class UserPageTest extends WebTestCase
         $this->logUtils->login('admin');
         $crawler = $this->client->request('GET', '/users');
         $linkAddUser = $crawler->selectLink("Créer un utilisateur")->link()->getUri();
-        $crawler = $this->client->request('GET', $linkAddUser);
+        $this->client->request('GET', $linkAddUser);
         $this->assertResponseIsSuccessful();
     }
 
@@ -81,7 +81,7 @@ class UserPageTest extends WebTestCase
         $this->logUtils->login('admin');
         $crawler = $this->client->request('GET', '/');
         $link = $crawler->selectLink("Liste des utilisateurs")->link()->getUri();
-        $crawler = $this->client->request('GET', $link);
+        $this->client->request('GET', $link);
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Liste des utilisateurs');
     }
